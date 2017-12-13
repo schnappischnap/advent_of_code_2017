@@ -1,11 +1,25 @@
 import re
 
 
-node_map = {}
-node_values = {}
+def part_1(data):
+    node_map = {}
+
+    for line in data:
+        name, weight, *children = re.findall(r'\w+', line)
+        if children:
+            node_map[name] = children
+
+    nodes = node_map.keys()
+    nodes_w_children = [i for v in node_map.values() for i in v]
+    root = list(set(nodes) - set(nodes_w_children))[0]
+
+    return root
 
 
-def solve(data, *, part):
+def part_2(data):
+    node_map = {}
+    node_values = {}
+
     for line in data:
         name, weight, *children = re.findall(r'\w+', line)
         node_values[name] = int(weight)
@@ -16,19 +30,16 @@ def solve(data, *, part):
     nodes_w_children = [i for v in node_map.values() for i in v]
     root = list(set(nodes) - set(nodes_w_children))[0]
 
-    if part == 1:
-        return root
-    if part == 2:
-        return sum_descendants(root)
+    return sum_descendants(root, node_map, node_values)
 
 
-def sum_descendants(node):
+def sum_descendants(node, node_map, node_values):
     children = node_map[node]
     arm_totals = {}
     for child in children:
         value = node_values[child]
         if child in node_map.keys():
-            value += sum(sum_descendants(child).values())
+            value += sum(sum_descendants(child, node_map, node_values).values())
         arm_totals[child] = value
     if len(set(arm_totals.values())) != 1:
         k = list(arm_totals.keys())
@@ -42,9 +53,8 @@ def sum_descendants(node):
     return arm_totals
 
 
-if __name__ == '__main__':
-    with open("day_07_input.txt") as f:
-        inp = f.readlines()
-        print("Part 1 answer: " + str(solve(inp, part=1)))
-        print("Part 2 answer: ", end="")
-        solve(inp, part=2)
+with open("day_07_input.txt") as f:
+    inp = f.readlines()
+    print("Part 1 answer: " + str(part_1(inp)))
+    print("Part 2 answer: ", end="")
+    part_2(inp)

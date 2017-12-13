@@ -1,10 +1,9 @@
 import re
 
 
-def calculate_score(data):
-    a = re.sub(r'!\S', '', data)     # Remove '!' and cancelled
-    b = re.sub(r'<[^>]*>', '', a)    # Remove garbage
-    c = re.findall(r'<([^>]*)>', a)  # Find all garbage
+def part_1(data):
+    a = re.sub(r'!\S', '', data)  # Remove '!' and cancelled
+    b = re.sub(r'<[^>]*>', '', a)  # Remove garbage
 
     depth, score = 0, 0
     for i in b:
@@ -14,12 +13,17 @@ def calculate_score(data):
         if i == '}':
             depth -= 1
 
-    return score, sum(len(i) for i in c)
+    return score
 
 
-if __name__ == '__main__':
-    with open("day_09_input.txt") as f:
-        inp = f.readlines()[0]
-        out = calculate_score(inp)
-        print("Part 1 answer: " + str(out[0]))
-        print("Part 2 answer: " + str(out[1]))
+def part_2(data):
+    a = re.sub(r'!\S', '', data)  # Remove '!' and cancelled
+    c = re.findall(r'<([^>]*)>', a)  # Find all garbage
+
+    return sum(len(i) for i in c)
+
+
+with open("day_09_input.txt") as f:
+    inp = f.readlines()[0]
+    print("Part 1 answer: " + str(part_1(inp)))
+    print("Part 2 answer: " + str(part_2(inp)))
