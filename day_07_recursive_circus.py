@@ -53,8 +53,9 @@ def sum_descendants(node, node_map, node_values):
     return arm_totals
 
 
-with open("day_07_input.txt") as f:
-    inp = f.readlines()
-    print("Part 1 answer: " + str(part_1(inp)))
-    print("Part 2 answer: ", end="")
-    part_2(inp)
+if __name__ == '__main__':
+    with open('day_07_input.txt') as f:
+        inp = f.readlines()
+        print("Part 1 answer: " + str(part_1(inp)))
+        print("Part 2 answer: ", end="")
+        part_2(inp)

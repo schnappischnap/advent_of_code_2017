@@ -9,7 +9,8 @@ def part_2(data):
     return sum(sorted(p) == sorted(list(set(p))) for p in phrases)
 
 
-with open("day_04_input.txt") as f:
-    inp = f.readlines()
-    print("Part 1 answer: " + str(part_1(inp)))
-    print("Part 2 answer: " + str(part_2(inp)))
+if __name__ == '__main__':
+    with open('day_04_input.txt') as f:
+        inp = f.readlines()
+        print("Part 1 answer: " + str(part_1(inp)))
+        print("Part 2 answer: " + str(part_2(inp)))

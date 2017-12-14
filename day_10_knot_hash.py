@@ -27,7 +27,7 @@ def part_2(data):
             skip += 1
 
     dense = [reduce(xor, nums[i:i + 16]) for i in range(0, 256, 16)]
-    return "".join(format(i, '02x') for i in dense)
+    return ''.join(format(i, '02x') for i in dense)
 
 
 def reverse_slice(a, start, length):
@@ -39,7 +39,8 @@ def reverse_slice(a, start, length):
         a[(start+i) % len(a)] = sliced[i]
 
 
-with open("day_10_input.txt") as f:
-    inp = f.readlines()[0]
-    print("Part 1 answer: " + str(part_1(inp)))
-    print("Part 2 answer: " + str(part_2(inp)))
+if __name__ == '__main__':
+    with open('day_10_input.txt') as f:
+        inp = f.readlines()[0]
+        print("Part 1 answer: " + str(part_1(inp)))
+        print("Part 2 answer: " + str(part_2(inp)))
